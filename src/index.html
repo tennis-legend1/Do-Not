@@ -2,7 +2,6 @@
 
   <main id="room">
 
-
     <h1 id="headline">don't.</h1>
 
     <button id="button">press me</button>
@@ -12,7 +11,7 @@
   </main>
 
   <footer>
-    <span id="tries">0</span> attempts
+    <span id="tries">0</span> <span id="word">clicks</span>
   </footer>
 
 
@@ -38,7 +37,6 @@ body{
   width:min(88%,620px);
   transition:transform .18s;
 }
-
 
 h1{
   margin:0 0 38px;
@@ -110,8 +108,10 @@ const lines = [
 ];
 
 button.onclick = () => {
+
   count++;
   tries.textContent = count;
+  word.textContent = count === 1 ? "click" : "clicks";
 
   room.classList.remove("shake");
   void room.offsetWidth;
@@ -125,29 +125,65 @@ button.onclick = () => {
   if(count === 4){
     document.body.style.background = "#171717";
     document.body.style.color = "#e9e6df";
+
     button.textContent = "you know what you're doing";
   }
 
-  if(count > 4){
+  if(count > 4 && count < 9){
     button.style.position = "relative";
     button.style.left = Math.random()*160-80 + "px";
     button.style.top = Math.random()*70-35 + "px";
   }
 
+  if(count === 7){
+    answer.textContent = "seriously, stop clicking it.";
+  }
+
+  if(count === 8){
+    headline.textContent = "okay, enough.";
+    answer.textContent = "this is getting embarrassing.";
+  }
+
   if(count === 9){
     button.style.left = "0";
     button.style.top = "0";
+
     headline.textContent = "okay.";
     answer.textContent = "you win.";
+
     button.textContent = "leave it alone";
   }
 
   if(count === 10){
     headline.textContent = "good.";
     answer.textContent = "finally.";
-    button.remove();
+
+    button.textContent = "again";
+    button.style.position = "static";
   }
 };
+
+
+button.addEventListener("click", () => {
+
+  if(count === 10){
+
+    count = 0;
+
+    tries.textContent = 0;
+    word.textContent = "clicks";
+
+    document.body.style.background = "#e9e6df";
+    document.body.style.color = "#171717";
+
+    headline.textContent = "don't.";
+    answer.textContent = "you were told not to.";
+
+    button.textContent = "press me";
+    button.style.position = "static";
+  }
+
+});
 </script>
 
 </body>
