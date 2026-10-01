@@ -11,7 +11,7 @@
   </main>
 
   <footer>
-    <span id="tries">0</span> <span id="word">clicks</span>
+    <span id="tries">0</span>&nbsp;<span id="word">clicks</span>
   </footer>
 
 
@@ -109,7 +109,27 @@ const lines = [
 
 button.onclick = () => {
 
+  if(count === 10){
+
+    count = 0;
+
+    tries.textContent = 0;
+    word.textContent = "clicks";
+
+    document.body.style.background = "#e9e6df";
+    document.body.style.color = "#171717";
+
+    headline.textContent = "don't.";
+    answer.textContent = "you were told not to.";
+
+    button.textContent = "press me";
+    button.style.position = "static";
+
+    return;
+  }
+
   count++;
+
   tries.textContent = count;
   word.textContent = count === 1 ? "click" : "clicks";
 
@@ -158,32 +178,15 @@ button.onclick = () => {
     headline.textContent = "good.";
     answer.textContent = "finally.";
 
-    button.textContent = "again";
     button.style.position = "static";
+    button.style.visibility = "hidden";
+
+    setTimeout(() => {
+      button.textContent = "again";
+      button.style.visibility = "visible";
+    },500);
   }
 };
-
-
-button.addEventListener("click", () => {
-
-  if(count === 10){
-
-    count = 0;
-
-    tries.textContent = 0;
-    word.textContent = "clicks";
-
-    document.body.style.background = "#e9e6df";
-    document.body.style.color = "#171717";
-
-    headline.textContent = "don't.";
-    answer.textContent = "you were told not to.";
-
-    button.textContent = "press me";
-    button.style.position = "static";
-  }
-
-});
 </script>
 
 </body>
